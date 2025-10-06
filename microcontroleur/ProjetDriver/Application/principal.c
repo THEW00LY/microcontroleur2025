@@ -1,17 +1,13 @@
 #include "stm32f10x.h"
+#include "Driver_GPIO.h"
 
 int main ( void )
 {
 	
-	RCC->APB2ENR |= (0x01 << 2) | (0x01 << 3) | (0x01 << 4) ;
-	
-	//configuration de PC6
-	GPIOC->CRL = GPIOC->CRL &~ (0xD<<(4*6+1));
-	GPIOC->CRL = GPIOC->CRL | (0x1<<(4*6+1));
-	
+		MyGPIO_Init(GPIOC, 6, Out_Ppull);
 
 	//mise du bit 6 à 1 
-	GPIOC->ODR |= (0x01 << 6);
+		MyGPIO_Set(GPIOC, 6);
 	
 	while (1)
 	{
